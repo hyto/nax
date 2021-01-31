@@ -4,7 +4,6 @@
 
 // #define PJON_PACKET_MAX_LENGTH     64
 
-// #include <PJON.h>
 #include <PJONSoftwareBitBang.h>
 
 // Define el nivel de depuracion para la consola serial
@@ -21,7 +20,32 @@ uint8_t pinMap[MAX_IOMAP_SIZE];
 
 #define RESET_PIN 13
 
-//typedef void (*rpc_callback)(const JsonArray);
+int pserial(int size, const char *format, ...){
+  va_list args;
+  va_start(args, format);
+  
+  char s[size];
+  vsnprintf(s, size, format, args);
+  // snprintf(s, 128, format, args);
+
+  Serial.print(s); 
+  va_end(args);
+
+  return 0;
+}
+
+int pserial(const char *format, ...){
+  va_list args;
+  va_start(args, format);
+  
+  char s[25];
+  vsnprintf(s, sizeof(s), format, args);
+
+  Serial.print(s); 
+  va_end(args);
+
+  return 0;
+}
 
 struct NaxCommand {
 private:
