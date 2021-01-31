@@ -4,7 +4,8 @@
 
 // #define PJON_PACKET_MAX_LENGTH     64
 
-#include <PJON.h>
+// #include <PJON.h>
+#include <PJONSoftwareBitBang.h>
 
 // Define el nivel de depuracion para la consola serial
 uint8_t DEBUG_LEVEL = 0;
@@ -363,7 +364,7 @@ void nax_default_receiver(uint8_t *payload, uint16_t length, const PJON_Packet_I
     do_callback(cmd);
     String response = cmd.naxResult();
     // #ifndef ESP_H
-    _nax->m_bus.send(packet_info.sender_id, response.c_str(), response.length());
+    _nax->m_bus.send(packet_info.tx.id, response.c_str(), response.length());
     // #endif
   }
 }
